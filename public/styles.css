@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.title {
+    font-weight: 900;
+}
+.desc {
+    margin-top: -3px;
+    color: #eeee;
+}
+
+body {
+    background: #1a1a1a;
+    color: #ffffff;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10%;
+    box-sizing: border-box;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.card-wrapper {
+    width: 100%;
+    background: #1e1e1e;
+    box-shadow: 0 5px 10px -8px #0e0e0e;
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+.card-wrapper:after {
+    content: '';
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    border: 2px solid #23272c;
+}
+
+.shadow {
+    z-index: 1;
+    position: absolute;
+    width: calc(100% + 0px);
+    height: calc(100% + 0px);
+    bottom: 0px;
+    left: 0px;
+    border-radius: 5px;
+    background: linear-gradient(0deg, #1e1e1e, #0000);
+}
+
+.card-wrapper > .content {
+    position: relative;
+    z-index: 2;
+}
+
+form {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+input {
+    width: 100%;
+    height: 30px;
+    background: #1a1a1a;
+    border: 2px solid #23272c;
+    padding: 5px;
+    border-radius: 5px;
+    color: #eeeeee;
+    outline: none;
+    box-sizing: content-box;
+    box-shadow: 0 5px 10px -10px #0e0e0e;
+}
+
+.btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    flex-direction: row-reverse;
+    gap: 10px;
+}
+button {
+    width: 100%;
+    height: 40px;
+    opacity: .7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px -10px #0e0e0e;
+}
+.btn-submit {
+    background-color: #008000; /* Warna hijau */
+    color: #ffffff; /* Warna putih */
+    border: none; /* Hapus border */
+    padding: 10px 20px; /* Tambahkan padding */
+    font-size: 16px; /* Tambahkan font size */
+    cursor: pointer; /* Tambahkan cursor pointer */
+}
+.btn-reset {
+  background-color: #ff0000; /* Warna merah */
+  color: #ffffff; /* Warna putih */
+  border: none; /* Hapus border */
+  padding: 10px 20px; /* Tambahkan padding */
+  font-size: 16px; /* Tambahkan font size */
+  cursor: pointer; /* Tambahkan cursor pointer */
+}
+.btn-submit:hover,
+.btn-reset:hover {
+    opacity: 1;
+}
+
+.note {
+    width: 100%;
+    height: 100%;
+}
+
+@media (min-width: 600px) {
+    body {
+        padding: 30px 15vw;
+    }
+    input {
+        width: calc(50% - 20px);
+    }
+    .btn-wrapper {
+        flex-direction: column;
+    }
+}

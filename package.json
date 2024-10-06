@@ -1,0 +1,32 @@
+{
+  "name": "host-maker",
+  "version": "1.0.0",
+  "description": "Host maker for growtopia private server (GTPS)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GTPSHAX/Host-Maker.git"
+  },
+  "keywords": [
+    "host",
+    "maker",
+    "host",
+    "maker",
+    "gtps",
+    "growtopia",
+    "growtopia",
+    "private",
+    "server",
+    "webapp",
+    "api"
+  ],
+  "author": "OxygenC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GTPSHAX/Host-Maker/issues"
+  },
+  "homepage": "https://github.com/GTPSHAX/Host-Maker#readme"
+}
