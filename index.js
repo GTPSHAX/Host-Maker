@@ -1,7 +1,6 @@
 const express = require("express");
 const web = express();
 const bodyParser = require('body-parser');
-const axios = require('axios');
 
 web.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
