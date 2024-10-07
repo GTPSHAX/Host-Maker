@@ -2,6 +2,8 @@ const express = require("express");
 const web = express();
 const bodyParser = require('body-parser');
 
+let database = {};
+
 web.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -13,14 +15,43 @@ web.use(function (req, res, next) {
 web.use(bodyParser.urlencoded({ extended: true }));
 
 // Login section
-web.post('/api', (req, res) => {
+web.post('/api', async (req, res) => {
     try {
-        res.redirect("/player/growid/login/validate");
+        const invalidExtensions = new Set(["html", "css", "js"]);
+        const fileExtension = req.body.name.split(".").pop();
+        
+        if (invalidExtensions.has(fileExtension)) {
+            res.redirect("/");
+        }
+        
+        const data = database[req.body.name];
+        if (data) {
+            if (data.key && req.body.key == data.key) {
+                data.ip1 = req.body.ip1;
+                data.ip2 = req.body.ip2 ? req.body.ip2 : req.body.ip1;
+            }
+            else res.redirect("/");
+        }
+        else {
+            await database.push(
+                req.body.name: {
+                    "ip1": req.body.ip1,
+                    "ip2": req.body.ip2 ? req.body.ip2 : req.body.ip1,
+                    "key": key ? key : ""
+                }
+            );
+        }
+        
+        res.redirect("/" + req.body.name);
     } catch (error) {
         console.error(error);
         res.sendStatus(404);
     }
+    catch (...) {
+        res.sendStatus(404);
+    }
 });
+
 /*web.all('/player/growid/login/validate', (req, res) => {
     try {
         const token = Buffer.from(`_token=${req.body._token}&growId=GROWPLUS&password=GROWPLUS`).toString('base64');
@@ -36,5 +67,40 @@ web.post('/player/validate/close', function (req, res) {
 });
 */
 web.use(express.static(__dirname + "/public"))
+
+web.get("/:key", (req, res)=>{
+    try {
+        const key = req.params.split("/")[req.params.split("/").length - 1].split(".")[0];
+        const ext = req.params.split("/")[req.params.split("/").length - 1].split(".")[req.params.split("/")[req.params.split("/").length - 1].split(".").length - 1];
+        
+        const data = database[key];
+        if (data) {
+            const host = `${ip1} growtopia1.com
+${ip2} growtopia2.com
+${ip1} www.growtopia1.com
+${ip2} www.growtopia2.com`;
+
+            if (ext == "host") {
+                res.set({
+                    'Content-Type': 'text/plain',
+                    'Content-Disposition': `attachment; filename="${data.name}.host"`,
+                });
+            }
+            else {
+                res.set({
+                    'Content-Type': 'text/plain',
+                });
+            }
+            res.send(host);
+        }
+        else res.redirect("/player/growid/login/validate");
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(404);
+    }
+    catch (...) {
+        res.sendStatus(404);
+    }
+});
 
 module.exports = web;
