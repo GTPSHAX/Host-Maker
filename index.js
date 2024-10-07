@@ -55,10 +55,10 @@ web.get("/:key", (req, res)=>{
         
         const data = database[key];
         if (data) {
-            const host = `${ip1} growtopia1.com
-${ip2} growtopia2.com
-${ip1} www.growtopia1.com
-${ip2} www.growtopia2.com`;
+            const host = `${data["ip1"]} growtopia1.com
+${data["ip2"]} growtopia2.com
+${data["ip1"]} www.growtopia1.com
+${data["ip2"]} www.growtopia2.com`;
 
             if (ext == "host") {
                 res.set({
