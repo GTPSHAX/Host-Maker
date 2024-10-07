@@ -14,7 +14,6 @@ web.use(function (req, res, next) {
 });
 web.use(bodyParser.urlencoded({ extended: true }));
 
-// Login section
 web.post('/api', async (req, res) => {
     try {
         const invalidExtensions = new Set(["html", "css", "js"]);
@@ -26,20 +25,18 @@ web.post('/api', async (req, res) => {
         
         const data = database[req.body.name];
         if (data) {
-            if (data.key && req.body.key == data.key) {
+            if (data["key"] && req.body.key == data["key"]) {
                 data.ip1 = req.body.ip1;
                 data.ip2 = req.body.ip2 ? req.body.ip2 : req.body.ip1;
             }
             else res.redirect("/");
         }
         else {
-            await database.push(
-                req.body.name: {
-                    "ip1": req.body.ip1,
-                    "ip2": req.body.ip2 ? req.body.ip2 : req.body.ip1,
-                    "key": key ? key : ""
-                }
-            );
+            database[req.body.name] = {
+                "ip1": req.body.ip1,
+                "ip2": req.body.ip2 ? req.body.ip2 : req.body.ip1,
+                "key": req.body.key ? req.body.key : ""
+            }
         }
         
         res.redirect("/" + req.body.name);
@@ -52,20 +49,6 @@ web.post('/api', async (req, res) => {
     }
 });
 
-/*web.all('/player/growid/login/validate', (req, res) => {
-    try {
-        const token = Buffer.from(`_token=${req.body._token}&growId=GROWPLUS&password=GROWPLUS`).toString('base64');
-    
-        res.send(`{"status":"success","message":"Account Validated.","token":"${cnf.server.returnToken ? token : ""}","url":"","accountType":"growtopia"}`);
-    } catch (error) {
-        console.error(error);
-        res.sendStatus(404);
-    }
-});
-web.post('/player/validate/close', function (req, res) {
-    res.send('<script>window.close();</script>');
-});
-*/
 web.use(express.static(__dirname + "/public"))
 
 web.get("/:key", (req, res)=>{
