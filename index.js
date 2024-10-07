@@ -44,9 +44,6 @@ web.post('/api', async (req, res) => {
         console.error(error);
         res.sendStatus(404);
     }
-    catch (...) {
-        res.sendStatus(404);
-    }
 });
 
 web.use(express.static(__dirname + "/public"))
@@ -79,9 +76,6 @@ ${ip2} www.growtopia2.com`;
         else res.redirect("/player/growid/login/validate");
     } catch (error) {
         console.error(error);
-        res.sendStatus(404);
-    }
-    catch (...) {
         res.sendStatus(404);
     }
 });
