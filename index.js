@@ -50,8 +50,8 @@ web.use(express.static(__dirname + "/public"))
 
 web.get("/:key", (req, res)=>{
     try {
-        const key = req.params.split("/")[req.params.split("/").length - 1].split(".")[0];
-        const ext = req.params.split("/")[req.params.split("/").length - 1].split(".")[req.params.split("/")[req.params.split("/").length - 1].split(".").length - 1];
+        const key = req.params.key.split("/")[req.params.key.split("/").length - 1].split(".")[0];
+        const ext = req.params.key.split("/")[req.params.key.split("/").length - 1].split(".")[req.params.key.split("/")[req.params.key.split("/").length - 1].split(".").length - 1];
         
         const data = database[key];
         if (data) {
