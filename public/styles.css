@@ -29,12 +29,16 @@ body {
     flex-direction: column;
 }
 
+a {
+    all: unset;
+}
+
 .card-wrapper {
     width: 100%;
     background: #1e1e1e;
     box-shadow: 0 5px 10px -8px #0e0e0e;
     position: relative;
-    padding: 10px 20px;
+    padding: 20px;
     border-radius: 5px;
 }
 .card-wrapper:after {

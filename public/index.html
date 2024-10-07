@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Host Maker</title>
+  <link rel="icon" href="/icon.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -11,7 +12,7 @@
         <div class="content">
             <h1 class="title" style="color: #6B728E;">HOST <span style="color: #3282B8;">MAKER</span></h1>
             <p class="desc">Simple page to create your GTPS Host</p>
-            <form>
+            <form action="api" method="POST" accept-charset="utf-8" role="form" autocomplete="on">
                 <input type="text" id="name" name="name" placeholder="Host Name" required>
                 <input type="text" id="ip1" name="ip1" placeholder="ip1" required>
                 <input type="text" id="ip2" name="ip2" placeholder="ip2 (Optional)">
@@ -25,6 +26,15 @@
         </div>
         <div class="shadow"></div>
     </div>
-    <p style="color: #6B728E;"><b>Host Maker &copy; GrowPlus Community - 2024</b></p>
+    <a href="https://discord.com/invite/D7wCQV8YCr" style="color: #6B728E;"><b>Host Maker &copy; GrowPlus Community</b></a>
+    <script>
+        cont btnReset = document.querySelector("#btn-reset");
+        
+        btnReset.addEventListener("click", ()=>{
+            document.querySelectorAll("input").forEach(input, ()=>{
+                input.value = "";
+            });
+        });
+    </script>
 </body>
 </html>

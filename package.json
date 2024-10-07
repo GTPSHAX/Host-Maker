@@ -28,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/GTPSHAX/Host-Maker/issues"
   },
-  "homepage": "https://github.com/GTPSHAX/Host-Maker#readme"
+  "homepage": "https://github.com/GTPSHAX/Host-Maker#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3"
+  }
 }
