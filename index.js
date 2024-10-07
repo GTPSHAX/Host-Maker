@@ -29,7 +29,7 @@ web.post('/api', async (req, res) => {
                 data.ip1 = req.body.ip1;
                 data.ip2 = req.body.ip2 ? req.body.ip2 : req.body.ip1;
             }
-            else res.redirect("/");
+            else res.redirect("");
         }
         else {
             database[req.body.name] = {
