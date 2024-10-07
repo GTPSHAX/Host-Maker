@@ -21,6 +21,7 @@ web.post('/api', async (req, res) => {
         
         if (invalidExtensions.has(fileExtension)) {
             res.redirect("/");
+            return;
         }
         
         const data = database[req.body.name];
@@ -29,7 +30,10 @@ web.post('/api', async (req, res) => {
                 data.ip1 = req.body.ip1;
                 data.ip2 = req.body.ip2 ? req.body.ip2 : req.body.ip1;
             }
-            else res.redirect("");
+            else {
+                res.redirect("/");
+                return;
+            }
         }
         else {
             database[req.body.name] = {
@@ -73,7 +77,7 @@ ${data["ip2"]} www.growtopia2.com`;
             }
             res.send(host);
         }
-        else res.redirect("/player/growid/login/validate");
+        else res.redirect("/");
     } catch (error) {
         console.error(error);
         res.sendStatus(404);
