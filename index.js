@@ -1,7 +1,7 @@
 const express = require("express");
 const web = express();
 const bodyParser = require('body-parser');
-const { put, get } = require('@vercel/blob');
+const { putBlob, getBlob } = require('@vercel/blob');
 
 web.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -30,7 +30,7 @@ web.post('/api', async (req, res) => {
             if (data["key"] && req.body["key"] == data["key"]) {
                 data["ip1"] = req.body["ip1"];
                 data["ip2"] = req.body["ip2"] ? req.body["ip2"] : req.body["ip1"];
-                await put(req.body["name"], { json: data });
+                await putBlob(req.body["name"], { json: data });
             }
             else {
                 res.redirect("/");
@@ -43,7 +43,7 @@ web.post('/api', async (req, res) => {
                 "ip2": req.body["ip2"] ? req.body["ip2"] : req.body["ip1"],
                 "key": req.body["key"] ? req.body["key"] : ""
             }
-            await put(req.body["name"], { json: data });
+            await putBlob(req.body["name"], { json: data });
         }
         
         res.redirect("/" + req.body.name);
@@ -60,7 +60,7 @@ web.get("/:key", async (req, res)=>{
         const key = req.params.key.split("/")[req.params.key.split("/").length - 1].split(".")[0];
         const ext = req.params.key.split("/")[req.params.key.split("/").length - 1].split(".")[req.params.key.split("/")[req.params.key.split("/").length - 1].split(".").length - 1];
         
-        const data = await get(key);
+        const data = await getBlob(key);
         if (data) {
             data = JSON.parse(data);
             
