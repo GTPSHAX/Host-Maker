@@ -23,7 +23,7 @@ web.post('/api', async (req, res) => {
             return;
         }
         
-        let data = await get(req.body["name"]);
+        let data = await getBlob(req.body["name"]); // Fix: use getBlob instead of get
         if (data) {
             data = JSON.parse(data);
             
