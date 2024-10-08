@@ -1,7 +1,8 @@
 const express = require("express");
 const web = express();
 const bodyParser = require('body-parser');
-const { putBlob, getBlob } = require('@vercel/blob');
+const { put, get } = require('@vercel/blob');
+const axios = require('axios');
 
 web.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -23,14 +24,23 @@ web.post('/api', async (req, res) => {
             return;
         }
         
-        let data = await getBlob(req.body["name"]); // Fix: use getBlob instead of get
+        let data;
+        // try {
+        //     const response = await axios.get(`https://nizmryel0k76gcub.public.blob.vercel-storage.com/${req.body["name"]}`);
+        //     data = response.data;
+        // } catch (error) {
+        //     console.error(error);
+        //     res.status(404).send('Blob not found');
+        //     return;
+        // }
+        
         if (data) {
             data = JSON.parse(data);
             
             if (data["key"] && req.body["key"] == data["key"]) {
                 data["ip1"] = req.body["ip1"];
                 data["ip2"] = req.body["ip2"] ? req.body["ip2"] : req.body["ip1"];
-                await putBlob(req.body["name"], { json: data });
+                await put(req.body["name"], { json: data });
             }
             else {
                 res.redirect("/");
@@ -43,13 +53,13 @@ web.post('/api', async (req, res) => {
                 "ip2": req.body["ip2"] ? req.body["ip2"] : req.body["ip1"],
                 "key": req.body["key"] ? req.body["key"] : ""
             }
-            await putBlob(req.body["name"], { json: data });
+            await put(req.body["name"], data.toString(), {access: 'public'});
         }
         
         res.redirect("/" + req.body.name);
     } catch (error) {
         console.error(error);
-        res.sendStatus(404);
+        res.status(500).send('Error updating blob');
     }
 });
 
@@ -60,7 +70,7 @@ web.get("/:key", async (req, res)=>{
         const key = req.params.key.split("/")[req.params.key.split("/").length - 1].split(".")[0];
         const ext = req.params.key.split("/")[req.params.key.split("/").length - 1].split(".")[req.params.key.split("/")[req.params.key.split("/").length - 1].split(".").length - 1];
         
-        const data = await getBlob(key);
+        const data = await get(key);
         if (data) {
             data = JSON.parse(data);
             
@@ -85,8 +95,12 @@ ${data["ip2"]} www.growtopia2.com`;
         else res.redirect("/");
     } catch (error) {
         console.error(error);
-        res.sendStatus(404);
+        res.status(404).send('Blob not found');
     }
 });
+
+web.listen(80, () => {
+    console.log(`Example app listening on port  80`)
+  })
 
 module.exports = web;
